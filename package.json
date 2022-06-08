@@ -1,0 +1,17 @@
+{
+  "name": "reviews-api",
+  "version": "1.0.0",
+  "description": "reviews API for ecommerce clothing brand. Project for Hack Reactor Senior Deisgn Capstone (SDC)",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Keegan Leary",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3"
+  }
+}
