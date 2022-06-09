@@ -1,21 +1,28 @@
 const dbGetReviews = require('../database/queries/dbGetReviews')
-const db = require('../database/index');
+const pool = require('../database/index');
 
 module.exports = {
   getReviews: (req, res) => {
-    //console.log('req', req)
+    const text = 'select * from reviews limit 10';
 
-    const query = 'select * from reviews limit 10';
-    db.connect()
-    db.query(query, (error, response) => {
-      if (!error) {
-        console.log(response.rows)
-        res.send(response.rows)
-      } else {
-        res.send(error)
-      }
-      db.end()
-    });
+    pool.query(text)
+      .then(data => {
+        console.log(data)
+        res.status(200).send(data.rows)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
+
+    // pool.query(query, (error, response) => {
+    //   if (!error) {
+    //     console.log(response.rows)
+    //     res.send(response.rows)
+    //   } else {
+    //     res.send(error)
+    //   }
+    //   db.end()
+    // });
 
     // const productId = req.params.product_id;
     // const page = req.params.page || 1;
