@@ -1,5 +1,7 @@
 const dbAddReview = require('../database/queries/dbAddReview');
-const dbGetReviews = require('../database/queries/dbGetReviews')
+const dbGetReviews = require('../database/queries/dbGetReviews');
+const dbMarkHelpful = require('../database/queries/dbMarkHelpful');
+const dbMarkReviewReported = require('../database/queries/dbMarkReviewReported');
 
 module.exports = {
   getReviews: (req, res) => {
@@ -27,7 +29,7 @@ module.exports = {
     console.log('review', review)
     dbAddReview(review)
       .then(data => {
-        res.sendStatus(200)
+        res.sendStatus(201)
       })
       .catch(e => {
         res.status(500).send(e)
@@ -35,10 +37,22 @@ module.exports = {
   },
 
   markReviewHelpful: (req, res) => {
-    res.status(200).send('review helpful coming soon')
+    dbMarkHelpful(req.params.review_id)
+      .then(data => {
+        res.sendStatus(200)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
   },
 
   markReviewReported: (req, res) => {
-    res.status(200).send('mark reported coming soon')
+    dbMarkReviewReported(req.params.review_id)
+      .then(data => {
+        res.sendStatus(200)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
   },
 }

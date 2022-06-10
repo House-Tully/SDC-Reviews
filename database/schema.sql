@@ -67,14 +67,6 @@ FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/d
 DELIMITER ','
 CSV HEADER;
 
--- alter table reviews
--- alter column date type varchar(30)
--- using date::varchar
-
--- alter table reviews
--- alter column date type timestamp
--- using date::timestamp
-
 SELECT setval(pg_get_serial_sequence('reviews', 'id'), max(id)) FROM reviews;
 SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM reviews_photos;
 SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;

@@ -6,8 +6,6 @@ module.exports = (review) => {
   const values = [product_id, rating, summary, body, recommend, reviewer_name, email]
 
   //TODO add to photos as well
-  //TODO default date to NOW() ISO timestamp
-
   const query = {
     text: `
       insert into
