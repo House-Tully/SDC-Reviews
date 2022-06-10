@@ -3,14 +3,20 @@ const pool = require('../index');
 module.exports = (review) => {
   const { product_id, rating, summary, body, recommend, email, photos, characteristics } = review
   const reviewer_name = review.name
-  const values = [product_id, rating, summary, body, recommend, reviewer_name, email]
+  const values = [product_id, rating, summary, body, recommend, reviewer_name, email, photos[0]]
+  console.log(values)
 
   //TODO add to photos as well
   const query = {
     text: `
+    with new_review as (
       insert into
       reviews(product_id, rating, date, summary, body, recommend, reviewer_name, reviewer_email)
       values($1, $2, extract(epoch from now()), $3, $4, $5, $6, $7)
+      returning id as new_review_id
+    )
+    insert into reviews_photos(review_id, url)
+    SELECT new_review_id, $8 FROM new_review
     ;`,
     values: values
   }
@@ -33,3 +39,7 @@ module.exports = (review) => {
         })
     })
 }
+
+// insert into
+// reviews(product_id, rating, date, summary, body, recommend, reviewer_name, reviewer_email)
+// values($1, $2, extract(epoch from now()), $3, $4, $5, $6, $7)
