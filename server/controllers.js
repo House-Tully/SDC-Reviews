@@ -1,40 +1,18 @@
 const dbGetReviews = require('../database/queries/dbGetReviews')
-const pool = require('../database/index');
 
 module.exports = {
   getReviews: (req, res) => {
-    const text = 'select * from reviews limit 10';
+    const productId = req.params.product_id;
+    const page = parseInt(req.query.page) || 1;
+    const count = parseInt(req.query.count) || 5;
+    const sort = req.query.sort || 'newest';
 
-    pool.query(text)
+    dbGetReviews({ productId, page, count, sort })
       .then(data => {
-        console.log(data)
-        res.status(200).send(data.rows)
+        res.status(200).send({ product: productId, page, count, results: data })
       })
       .catch(e => {
-        res.status(500).send(e)
+        res.send(500).send(e)
       })
-
-    // pool.query(query, (error, response) => {
-    //   if (!error) {
-    //     console.log(response.rows)
-    //     res.send(response.rows)
-    //   } else {
-    //     res.send(error)
-    //   }
-    //   db.end()
-    // });
-
-    // const productId = req.params.product_id;
-    // const page = req.params.page || 1;
-    // const count = req.params.count || 5;
-    // const sort = req.query.sort || 'newest';
-    // try {
-    //   let data = await dbGetReviews({ productId, page, count, sort })
-    //   console.log('data', data)
-    //   res.send({ product: productId, page, count, results: data.rows })
-    // } catch (error) {
-    //   console.log('getReviews Error')
-    //   res.send(error)
-    // }
   }
 }
