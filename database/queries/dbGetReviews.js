@@ -12,7 +12,7 @@ module.exports = ({ productId, page, count, sort }) => {
 
   const query = {
     text: `
-    select r2.id as review_id, r2.rating, r2.summary, r2.recommend, r2.response, r2.body, r2.date, r2.reviewer_name, r2.helpfulness,
+    select r2.id as review_id, r2.rating, r2.summary, r2.recommend, r2.response, r2.body, to_timestamp(r2.date) as date, r2.reviewer_name, r2.helpfulness,
       (
       select array_to_json(coalesce(array_agg(photo), array[]::record[]))
       from
