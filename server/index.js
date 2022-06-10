@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express();
 app.use(morgan('dev'));
+app.use(express.json())
 const port = process.env.EXPRESS_PORT || 3000;
 const host = process.env.EXPRESS_HOST || 'localhost'
 const router = require('./router')

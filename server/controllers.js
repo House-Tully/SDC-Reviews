@@ -1,3 +1,4 @@
+const dbAddReview = require('../database/queries/dbAddReview');
 const dbGetReviews = require('../database/queries/dbGetReviews')
 
 module.exports = {
@@ -14,5 +15,30 @@ module.exports = {
       .catch(e => {
         res.send(500).send(e)
       })
-  }
+  },
+
+  getReviewMetadata: (req, res) => {
+    res.status(200).send('meta data coming soon')
+  },
+
+  addReview: (req, res) => {
+    console.log('body', req.body)
+    const review = { product_id: req.params.product_id, ...req.body }
+    console.log('review', review)
+    dbAddReview(review)
+      .then(data => {
+        res.sendStatus(200)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
+  },
+
+  markReviewHelpful: (req, res) => {
+    res.status(200).send('review helpful coming soon')
+  },
+
+  markReviewReported: (req, res) => {
+    res.status(200).send('mark reported coming soon')
+  },
 }
