@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== 'prod') {
   require('dotenv').config();
 }
 
+// logging for dev env
 if (process.env.NODE_ENV === 'dev') {
   app.use(morgan('dev'));
 }
