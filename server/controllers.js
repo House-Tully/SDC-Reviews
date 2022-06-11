@@ -3,6 +3,7 @@ const dbGetReviews = require('../database/queries/dbGetReviews');
 const dbMarkHelpful = require('../database/queries/dbMarkHelpful');
 const dbMarkReviewReported = require('../database/queries/dbMarkReviewReported');
 const dbGetReviewMetadata = require('../database/queries/dbGetReviewMetadata')
+const dbDeleteReview = require('../database/queries/dbDeleteReview')
 
 module.exports = {
   getReviews: (req, res) => {
@@ -61,4 +62,14 @@ module.exports = {
         res.status(500).send(e)
       })
   },
+
+  deleteReview: (req, res) => {
+    dbDeleteReview(req.params.review_id)
+      .then((data) => {
+        res.sendStatus(204)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
+  }
 }

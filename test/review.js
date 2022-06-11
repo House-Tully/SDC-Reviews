@@ -8,7 +8,6 @@ let chaiHttp = require('chai-http')
 let server = require('../server/index')
 let should = chai.should();
 let testReview = require('./sample_review');
-console.log(testReview)
 
 chai.use(chaiHttp);
 
@@ -31,7 +30,7 @@ describe('Reviews', () => {
         })
     })
   })
-  describe('POST review', () => {
+  describe('Test all endpoints', () => {
     let posted_review_id = null
     it('it should POST a new review for product_id=1', (done) => {
       chai.request(server)
@@ -90,6 +89,14 @@ describe('Reviews', () => {
           res.should.have.status(200)
           let data = res.body.results[0]
           data.review_id.should.not.eql(posted_review_id)
+          done()
+        })
+    })
+    it('it should DELETE the POSTED review', (done) => {
+      chai.request(server)
+        .delete(`/reviews/remove/${posted_review_id}`)
+        .end((err, res) => {
+          res.should.have.status(204)
           done()
         })
     })
