@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 10000"
   },
   "author": "Keegan Leary",
   "license": "ISC",
@@ -15,5 +15,10 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
     "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocha": "^10.0.0"
   }
 }
