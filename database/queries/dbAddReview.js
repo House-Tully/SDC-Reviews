@@ -11,7 +11,7 @@ module.exports = (review) => {
     with new_review as (
       insert into
       reviews(product_id, rating, date, summary, body, recommend, reviewer_name, reviewer_email)
-      values($1, $2, extract(epoch from now()), $3, $4, $5, $6, $7)
+      values($1, $2, extract(epoch from now())*1000, $3, $4, $5, $6, $7)
       returning id
     )
     select new_review.id from new_review

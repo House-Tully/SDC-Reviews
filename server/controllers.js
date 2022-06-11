@@ -34,7 +34,8 @@ module.exports = {
     const review = { product_id: req.params.product_id, ...req.body }
     dbAddReview(review)
       .then(data => {
-        res.sendStatus(201)
+        let review_id = data[0].id
+        res.status(201).send({ review_id })
       })
       .catch(e => {
         res.status(500).send(e)

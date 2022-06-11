@@ -12,7 +12,7 @@ module.exports = ({ productId, page, count, sort }) => {
 
   const query = {
     text: `
-    select id as review_id, rating, summary, recommend, response, body, to_timestamp(date) as date, reviewer_name, helpfulness,
+    select id as review_id, rating, summary, recommend, response, body, to_timestamp(date/1000) as date, reviewer_name, helpfulness,
     ( select coalesce(json_agg(to_json(photo_rows)), '[]')
         from (
             select rp.id, rp.url
