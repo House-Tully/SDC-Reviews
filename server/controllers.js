@@ -2,6 +2,7 @@ const dbAddReview = require('../database/queries/dbAddReview');
 const dbGetReviews = require('../database/queries/dbGetReviews');
 const dbMarkHelpful = require('../database/queries/dbMarkHelpful');
 const dbMarkReviewReported = require('../database/queries/dbMarkReviewReported');
+const dbGetReviewMetadata = require('../database/queries/dbGetReviewMetadata')
 
 module.exports = {
   getReviews: (req, res) => {
@@ -20,13 +21,17 @@ module.exports = {
   },
 
   getReviewMetadata: (req, res) => {
-    res.status(200).send('meta data coming soon')
+    dbGetReviewMetadata(req.params.product_id)
+      .then(data => {
+        res.status(200).send(data)
+      })
+      .catch(e => {
+        res.status(500).send(e)
+      })
   },
 
   addReview: (req, res) => {
-    console.log('body', req.body)
     const review = { product_id: req.params.product_id, ...req.body }
-    console.log('review', review)
     dbAddReview(review)
       .then(data => {
         res.sendStatus(201)
@@ -39,7 +44,7 @@ module.exports = {
   markReviewHelpful: (req, res) => {
     dbMarkHelpful(req.params.review_id)
       .then(data => {
-        res.sendStatus(200)
+        res.sendStatus(204)
       })
       .catch(e => {
         res.status(500).send(e)
@@ -49,7 +54,7 @@ module.exports = {
   markReviewReported: (req, res) => {
     dbMarkReviewReported(req.params.review_id)
       .then(data => {
-        res.sendStatus(200)
+        res.sendStatus(204)
       })
       .catch(e => {
         res.status(500).send(e)

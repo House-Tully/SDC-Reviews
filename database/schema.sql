@@ -38,7 +38,6 @@ CREATE TABLE "characteristics_reviews" (
   "value" SMALLINT CHECK (value > 0 AND value < 6)
 );
 
-
 DROP TABLE IF EXISTS "reviews_photos";
 
 CREATE TABLE "reviews_photos" (
