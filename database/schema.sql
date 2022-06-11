@@ -66,8 +66,6 @@ FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/d
 DELIMITER ','
 CSV HEADER;
 
-
-
 SELECT setval(pg_get_serial_sequence('reviews', 'id'), max(id)) FROM reviews;
 SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM reviews_photos;
 SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;

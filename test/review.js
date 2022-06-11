@@ -32,8 +32,8 @@ describe('Reviews', () => {
     })
   })
   describe('POST review', () => {
+    let posted_review_id = null
     it('it should POST a new review for product_id=1', (done) => {
-      let posted_review_id = null
       chai.request(server)
         .post('/reviews/1')
         .send(testReview)
@@ -41,13 +41,55 @@ describe('Reviews', () => {
           res.should.have.status(201);
           res.body.review_id.should.not.eql(null)
           posted_review_id = res.body.review_id;
+          done()
         })
+    })
+    it('POSTed review should appear first in results array when GET with default sort', (done) => {
       chai.request(server)
         .get('/reviews/1/list')
         .end((err, res) => {
           res.should.have.status(200)
-          console.log(res.body)
-          //res.body.results[0].review_id.should.eql(posted_review_id)
+          let data = res.body.results[0]
+          data.review_id.should.eql(posted_review_id)
+          data.summary.should.eql(testReview.summary)
+          data.helpfulness.should.eql(0)
+          done()
+        })
+    })
+    it('should mark a review as helpful', (done) => {
+      chai.request(server)
+        .put(`/reviews/helpful/${posted_review_id}`)
+        .end((err, res) => {
+          res.should.have.status(204)
+          done()
+        })
+    })
+    it('should have updated helpfulness value in GET response', (done) => {
+      chai.request(server)
+        .get('/reviews/1/list')
+        .end((err, res) => {
+          res.should.have.status(200)
+          let data = res.body.results[0]
+          data.review_id.should.eql(posted_review_id)
+          data.helpfulness.should.eql(1)
+          done()
+        })
+    })
+    it('should mark a review as reported', (done) => {
+      chai.request(server)
+        .put(`/reviews/report/${posted_review_id}`)
+        .end((err, res) => {
+          res.should.have.status(204)
+          done()
+        })
+    })
+    it('reported review should not appear in GET request', (done) => {
+      chai.request(server)
+        .get(`/reviews/1/list`)
+        .end((err, res) => {
+          res.should.have.status(200)
+          let data = res.body.results[0]
+          data.review_id.should.not.eql(posted_review_id)
           done()
         })
     })

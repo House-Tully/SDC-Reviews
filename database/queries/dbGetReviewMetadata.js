@@ -49,7 +49,7 @@ module.exports = async (product_id) => {
       ;`,
       values: [characteristicId]
     }
-    let averageScore = await pool.query(queryCharacteristicsReviews)
+    let averageScore = await client.query(queryCharacteristicsReviews)
     averageScore = averageScore.rows[0].avg.substring(0, 6)
     characteristics[characteristicName] = { id: characteristicId, value: averageScore }
   }
