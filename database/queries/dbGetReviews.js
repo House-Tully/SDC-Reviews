@@ -12,20 +12,18 @@ module.exports = ({ productId, page, count, sort }) => {
 
   const query = {
     text: `
-    select r2.id as review_id, r2.rating, r2.summary, r2.recommend, r2.response, r2.body, to_timestamp(r2.date) as date, r2.reviewer_name, r2.helpfulness,
-      (
-      select array_to_json(coalesce(array_agg(photo), array[]::record[]))
-      from
-        (
-        select p.id, p.url
-        from reviews r
-        inner join reviews_photos p
-        on r.id = p.review_id
-        where p.review_id = r2.id
-        ) photo
-      ) as photos
-    from reviews r2
-    where r2.product_id = $1 and r2.reported <> true
+    select id as review_id, rating, summary, recommend, response, body, to_timestamp(date) as date, reviewer_name, helpfulness,
+    ( select coalesce(json_agg(to_json(photo_rows)), '[]')
+        from (
+            select rp.id, rp.url
+            from reviews r
+            inner join reviews_photos rp
+            on r.id = rp.review_id
+            where rp.review_id = reviews.id
+        ) photo_rows
+    ) as photos
+    from reviews
+    where product_id=$1 and reported=false
     order by ${sort}
     limit $2
     offset $3
