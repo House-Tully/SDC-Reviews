@@ -23,7 +23,9 @@ app.get('/test', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get(`http://${process.env.PUBLIC_ADDR}/${process.env.LOADER_IO}/`)
+app.get(`http://${process.env.PUBLIC_ADDR}/${process.env.LOADER_IO}/`, (req, res) => {
+  res.send(`${process.env.LOADER_IO}`)
+})
 
 app.listen(port, () => console.log(`Listening at http://${host}:${port}`))
 
