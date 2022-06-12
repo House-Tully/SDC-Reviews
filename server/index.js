@@ -23,7 +23,7 @@ app.get('/test', (req, res) => {
   res.send('Hello World!')
 })
 
-app.get(`/3.92.229.140/${process.env.LOADER_IO}/`, (req, res) => {
+app.get(`/${process.env.LOADER_IO}/`, (req, res) => {
   res.send(`${process.env.LOADER_IO}`)
 })
 
