@@ -13,4 +13,8 @@ pool.on('error', (err, client) => {
   process.exit(-1)
 })
 
+pool.on('connect', client => {
+  console.log(`pool connected to ${client.user}@${client.host} using database ${client.database} on port ${client.port}`)
+})
+
 module.exports = pool

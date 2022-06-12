@@ -7,10 +7,10 @@ if (process.env.NODE_ENV !== 'prod') {
 }
 
 // logging for dev env
-if (process.env.NODE_ENV === 'dev') {
-  app.use(morgan('dev'));
-}
-
+// if (process.env.NODE_ENV === 'dev') {
+//   app.use(morgan('dev'));
+// }
+app.use(morgan('dev'));
 app.use(express.json())
 
 const port = process.env.EXPRESS_PORT || 3000;

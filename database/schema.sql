@@ -2,7 +2,7 @@
 -- to start psql: psql -U postgres
 -- to run file in psql: \i schema.sql
 
-\c test;
+-- \c test;
 
 DROP TABLE IF EXISTS "reviews";
 
@@ -47,22 +47,22 @@ CREATE TABLE "reviews_photos" (
 );
 
 COPY characteristics_reviews
-FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/data/characteristic_reviews.csv'
+FROM '/Users/keeganleary/Documents/Coding/hack-reactor.nosync/solo/reviews-API/data/characteristic_reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY characteristics
-FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/data/characteristics.csv'
+FROM '/Users/keeganleary/Documents/Coding/hack-reactor.nosync/solo/reviews-API/data/characteristics.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY reviews_photos
-FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/data/reviews_photos.csv'
+FROM '/Users/keeganleary/Documents/Coding/hack-reactor.nosync/solo/reviews-API/data/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY reviews
-FROM '/Users/keeganleary/Documents/Coding/Hack Reactor.nosync/solo/reviews-API/data/reviews.csv'
+FROM '/Users/keeganleary/Documents/Coding/hack-reactor.nosync/solo/reviews-API/data/reviews.csv'
 DELIMITER ','
 CSV HEADER;
 
