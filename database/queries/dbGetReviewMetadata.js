@@ -24,6 +24,9 @@ module.exports = async (product_id) => {
   let c = await client.query(queryCharacteristics)
   c = c.rows
 
+  console.log('r', r)
+  console.log('c', c)
+
   // Create ratings and recommend object
   const ratings = {}
   const recommended = { 0: 0, 1: 0 }
