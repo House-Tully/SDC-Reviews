@@ -57,6 +57,7 @@ module.exports = async (product_id) => {
       characteristics[characteristicName] = { id: characteristicId, value: null }
     }
   }
-  client.release()
+
   return { product_id, ratings, recommended, characteristics }
+  client.release()
 }
