@@ -24,9 +24,6 @@ module.exports = async (product_id) => {
   let c = await client.query(queryCharacteristics)
   c = c.rows
 
-  console.log('r', r)
-  console.log('c', c)
-
   // Create ratings and recommend object
   const ratings = {}
   const recommended = { 0: 0, 1: 0 }
@@ -56,7 +53,7 @@ module.exports = async (product_id) => {
     averageScore = averageScore.rows[0].avg.substring(0, 6)
     characteristics[characteristicName] = { id: characteristicId, value: averageScore }
   }
-
+  console.log('returns...', { product_id, ratings, recommended, characteristics })
   return { product_id, ratings, recommended, characteristics }
   client.release()
 }
