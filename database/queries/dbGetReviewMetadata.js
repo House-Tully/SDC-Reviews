@@ -51,7 +51,7 @@ module.exports = async (product_id) => {
     }
     let averageScore = await client.query(queryCharacteristicsReviews)
     console.log('averageScore', averageScore)
-    if (averageScore) {
+    if (averageScore.rows[0].avg !== null) {
       averageScore = averageScore.rows[0].avg.substring(0, 6)
       characteristics[characteristicName] = { id: characteristicId, value: averageScore }
     }
