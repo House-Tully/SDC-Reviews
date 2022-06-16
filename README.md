@@ -1,6 +1,6 @@
 # Executive Summary
 
-“I worked on the reviews service for e-commerce website. I experienced strong tradeoffs between time spent fine-tuning db queries and time-to-MVP. A divide-and-conquer approach to query writing combined with load-balancing, caching, and indexing was a an effective way to quickly obtain MVP. However, consolidating multiple queries into one was the best way to actually scale my service despite taking more time and adding complexity.”
+“I worked on the reviews service for e-commerce website. I experienced strong tradeoffs between time spent fine-tuning db queries and time-to-MVP. A divide-and-conquer approach to query writing combined with load-balancing, caching, and indexing was an effective way to quickly obtain MVP. However, consolidating multiple queries into one was the best way to actually scale my service despite taking more time and adding complexity.”
 
 **RANDOM ID GET:** scaled to 1k clients per second for random sampling of 100,000 records on /list and /meta GET endpoints with < 10 ms response time and < 0.003% error. Optimizations: indexing, load balancer with 4 services running
 
