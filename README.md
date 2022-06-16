@@ -6,7 +6,7 @@
 
 - /reviews/%{*:1-100000}/meta :: 1000 clients per second :: 5 ms 0.003% error rate
 
-    ![list-1k.png](/asset/list-1k.png)
+    ![list-1k.png](/assets/list-1k.png)
 
 - /reviews/%{*:1-100000}/list :: 1000 clients per second :: 8ms 0.00% error rate
 
