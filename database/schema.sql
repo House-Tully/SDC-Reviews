@@ -71,7 +71,12 @@ SELECT setval(pg_get_serial_sequence('reviews_photos', 'id'), max(id)) FROM revi
 SELECT setval(pg_get_serial_sequence('characteristics', 'id'), max(id)) FROM characteristics;
 SELECT setval(pg_get_serial_sequence('characteristics_reviews', 'id'), max(id)) FROM characteristics_reviews;
 
-create index review_product_id_index ON reviews (product_id);
-create index characteristics_product_id_index ON characteristics (product_id);
-create index characteristics_characteristics_id_index ON characteristics_reviews (characteristic_id);
+create index review_product_id_index ON reviews (product_id, rating, recommend);
+create index characteristics_product_id_index ON characteristics (product_id, name);
+create index characteristics_characteristics_id_index ON characteristics_reviews (characteristic_id, value);
 create index reviews_photos_review_id ON reviews_photos (review_id);
+
+-- drop index review_product_id_index;
+-- drop index characteristics_product_id_index;
+-- drop index characteristics_characteristics_id_index;
+-- drop index reviews_photos_review_id;

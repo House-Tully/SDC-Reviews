@@ -60,3 +60,69 @@ module.exports = async (product_id) => {
   client.release()
   return { product_id, ratings, recommended, characteristics }
 }
+
+/*
+// SINGULAR QUERY IS BETTER
+SELECT json_build_object(
+  'product_id', 1000,
+  'ratings', (
+    SELECT
+      json_object_agg(r.ref, r.num) result
+    FROM  (
+      SELECT
+        ref,
+        count(rating) AS num
+      FROM
+        unnest(ARRAY [1, 2, 3, 4, 5]) ref
+        LEFT JOIN
+          reviews ON (ref = rating AND product_id = 1000)
+      GROUP BY ref
+      ORDER BY ref
+    ) r
+  ),
+  'recommended', (
+    SELECT json_build_object(
+      'false', (
+        SELECT
+          COUNT(*)
+        FROM
+          reviews
+        WHERE (
+          product_id = 1000 AND recommend = false
+        )
+      ),
+      'true', (
+        SELECT
+          COUNT(*)
+        FROM
+          reviews
+        WHERE (
+          product_id = 1000 AND recommend = true
+        )
+      )
+    )
+  ),
+  'characteristics', (
+    SELECT json_object_agg(
+      name,
+        (
+          SELECT json_build_object(
+            'id', characteristics.id,
+            'value', (
+              SELECT
+                ROUND(AVG(value)::numeric, 4)
+              FROM
+                characteristics_reviews
+              WHERE (
+                characteristic_id = characteristics.id
+              )
+            )
+          )
+        )
+    ) from characteristics
+    WHERE (
+      product_id = 1000
+    )
+  )
+) data
+*/
