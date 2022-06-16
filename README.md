@@ -10,14 +10,14 @@
 
 - /reviews/%{*:1-100000}/list :: 1000 clients per second :: 8ms 0.00% error rate
 
-    ![Screen Shot 2022-06-13 at 21.44.46.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/65a24619-6414-451f-8a4d-c94f2311c32e/Screen_Shot_2022-06-13_at_21.44.46.png)
+    ![meta-1k.png](/assets/meta-1k.png)
 
 
 **REPEATING ID GET**: Scaled to 10k clients per second for /meta requests on repeating IDs served by cache. 5k clients per second for /list
 
 - /reviews/%{*:100000-100010}/meta :: 10k clients per second :: 3ms with 149 errors ~0.0%
 
-    ![Screen Shot 2022-06-13 at 21.57.58.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0ae92488-d396-43e8-8ac7-8e240c7a50cb/Screen_Shot_2022-06-13_at_21.57.58.png)
+    ![meta-10k.png](/assets/meta-10k.png)
 
 
 *Why I chose Postgres?*
